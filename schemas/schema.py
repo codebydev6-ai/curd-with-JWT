@@ -5,7 +5,6 @@ def individual_serial(user) -> dict:
         "id" : str(user["_id"]),
         "name": user["name"],
         "email": user["email"],
-        # "password": user["password"],
         "address" : user["address"],
         "phone": user["phone"],
         "complete" : user["complete"],

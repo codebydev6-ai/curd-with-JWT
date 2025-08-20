@@ -22,10 +22,7 @@ def message():
     return {"message":"this is home page"}
 
 
-# @router.get("/")
-# async def get_users():
-#     users = list_serial(collection_name.find())
-#     return {"users" : users , "message": "here is all users"}
+
 
 @router.get("/", response_class=HTMLResponse)
 def get_form(request: Request):
@@ -43,7 +40,7 @@ def create_user(
     pdf: UploadFile = File(...),
     document: UploadFile = File(...)
 ):
-    # 🔒 hash the password before saving
+    #  hash the password before saving
     hashed_pw = hash_password(password)
 
     user = {
@@ -94,11 +91,11 @@ def login(email: str = Form(...), password: str = Form(...)):
     if not user:
         raise HTTPException(status_code=400, detail="Invalid email or password")
 
-    # 🔒 check if entered password matches hashed password
+    #  check if entered password matches hashed password
     if not verify_password(password, user["password"]):
         raise HTTPException(status_code=400, detail="Invalid email or password")
 
-    # ✅ create token
+    #  create token
     token = create_access_token({"sub": str(user["_id"])})
     return {"access_token": token, "token_type": "bearer"}
 
@@ -121,33 +118,10 @@ def get_one_user(id : str):
     user = collection_name.find_one({"_id": ObjectId(id)})
     return individual_serial(user)
 
-# update user
-# @router.put("/users/{id}")
-# def update_user(    {"_id" : ObjectId(id)},
-#         {"$set":{
-#             "name" :name,
-#             "email": email,
-#             "password" : password,
-#             "address" : address,
-#             "phone" : phone,
-#             "complete": complete
-#         }}
-#     )
-#     id : str,
-#     name: str = Form(...),
-#     email : str = Form(...),
-#     password : str = Form(...),
-#     address : str = Form(...),
-#     phone: str = Form(...),
-#     complete: bool = Form(...),
-# ):
-#     collection_name.update_one(
-#     
-#     updated_user=collection_name.find_one({"_id": ObjectId(id)})
-#     return individual_serial(updated_user)
+
     
 
-    # update user 
+# update user 
 @router.put("/users/{id}")
 async def update_user(id : str , user: User):
     if not ObjectId.is_valid(id):
