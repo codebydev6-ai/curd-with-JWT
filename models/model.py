@@ -8,3 +8,4 @@ class User(BaseModel):
     address : str
     phone : str
     complete : Optional[bool] = False
+    
